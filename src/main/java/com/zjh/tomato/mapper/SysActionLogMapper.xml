@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjh.tomato.dao.SysActionLogMapper" >
+  <resultMap id="BaseResultMap" type="com.zjh.tomato.model.SysActionLog" >
+    <id column="action_id" property="actionId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="item" property="item" jdbcType="VARCHAR" />
+    <result column="method" property="method" jdbcType="VARCHAR" />
+    <result column="params" property="params" jdbcType="VARCHAR" />
+    <result column="action_time" property="actionTime" jdbcType="BIGINT" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="error" property="error" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    action_id, username, item, method, params, action_time, result, error, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zjh.tomato.model.SysActionLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_action_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_action_log
+    where action_id = #{actionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_action_log
+    where action_id = #{actionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zjh.tomato.model.SysActionLogExample" >
+    delete from sys_action_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zjh.tomato.model.SysActionLog" >
+    insert into sys_action_log (action_id, username, item, 
+      method, params, action_time, 
+      result, error, remark
+      )
+    values (#{actionId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{item,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{params,jdbcType=VARCHAR}, #{actionTime,jdbcType=BIGINT}, 
+      #{result,jdbcType=VARCHAR}, #{error,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zjh.tomato.model.SysActionLog" >
+    insert into sys_action_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="actionId != null" >
+        action_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="item != null" >
+        item,
+      </if>
+      <if test="method != null" >
+        method,
+      </if>
+      <if test="params != null" >
+        params,
+      </if>
+      <if test="actionTime != null" >
+        action_time,
+      </if>
+      <if test="result != null" >
+        result,
+      </if>
+      <if test="error != null" >
+        error,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="actionId != null" >
+        #{actionId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        #{item,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null" >
+        #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="actionTime != null" >
+        #{actionTime,jdbcType=BIGINT},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="error != null" >
+        #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zjh.tomato.model.SysActionLogExample" resultType="java.lang.Integer" >
+    select count(*) from sys_action_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_action_log
+    <set >
+      <if test="record.actionId != null" >
+        action_id = #{record.actionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.item != null" >
+        item = #{record.item,jdbcType=VARCHAR},
+      </if>
+      <if test="record.method != null" >
+        method = #{record.method,jdbcType=VARCHAR},
+      </if>
+      <if test="record.params != null" >
+        params = #{record.params,jdbcType=VARCHAR},
+      </if>
+      <if test="record.actionTime != null" >
+        action_time = #{record.actionTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.result != null" >
+        result = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.error != null" >
+        error = #{record.error,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_action_log
+    set action_id = #{record.actionId,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      item = #{record.item,jdbcType=VARCHAR},
+      method = #{record.method,jdbcType=VARCHAR},
+      params = #{record.params,jdbcType=VARCHAR},
+      action_time = #{record.actionTime,jdbcType=BIGINT},
+      result = #{record.result,jdbcType=VARCHAR},
+      error = #{record.error,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjh.tomato.model.SysActionLog" >
+    update sys_action_log
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="item != null" >
+        item = #{item,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null" >
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="params != null" >
+        params = #{params,jdbcType=VARCHAR},
+      </if>
+      <if test="actionTime != null" >
+        action_time = #{actionTime,jdbcType=BIGINT},
+      </if>
+      <if test="result != null" >
+        result = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="error != null" >
+        error = #{error,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where action_id = #{actionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zjh.tomato.model.SysActionLog" >
+    update sys_action_log
+    set username = #{username,jdbcType=VARCHAR},
+      item = #{item,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      params = #{params,jdbcType=VARCHAR},
+      action_time = #{actionTime,jdbcType=BIGINT},
+      result = #{result,jdbcType=VARCHAR},
+      error = #{error,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where action_id = #{actionId,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getAllActionLog" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from sys_action_log
+  </select>
+</mapper>

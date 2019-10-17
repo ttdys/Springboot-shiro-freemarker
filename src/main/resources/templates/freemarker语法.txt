@@ -1,0 +1,118 @@
+${name!}      加个!表示 ,如果name是空的 则不进行任何输出, 如果不为空 则进行输出
+${name}       这种 不为空 可以正常输出,  如果不为空 则直接报错
+<#include "/copyright_footer.html"> 导入其他页面元素
+<#include filename options>
+options包含两个属性
+encoding=GBK” 编码格式
+parse=true 是否作为ftl语法解析,默认是true，false就是以文本方式引入
+注意在ftl文件里布尔值都是直接赋值的如parse=true,而不是parse=true”
+————————————————
+版权声明：本文为CSDN博主「猪哥66」的原创文章，遵循 CC 4.0 BY 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/u014044812/article/details/51218216
+${item.createtime.toString("YYYY年MM月dd日 HH:mm:ss")}，指定中文时间格式
+${item.money!?string("0.00")}&nbsp;元 ，指定money格式
+-------------map----------
+Map对象的key和value都是表达式,但是key必须是字符串
+可以混合使用.和[""]访问
+book.author["name"] //混合使用点语法和方括号语法
+--------------${}插值表达式------
+FreeMarker的插值有如下两种类型:1,通用插值${expr};2,数字格式化插值:#{expr}或#{expr;format}
+${book.name?if_exists } //用于判断如果存在,就输出这个值
+${book.name?default(‘xxx’)}//默认值xxx
+${book.name!"xxx"}//默认值xxx
+${book.date?string('yyyy-MM-dd')} //日期格式
+${book?string.number} 20 //三种不同的数字格式
+${book?string.currency}--<#-- $20.00 -->
+${book?string.percent}—<#-- 20% -->
+-------------------list-----------
+<#list student as stu> 
+${stu}<br/> 
+</#list> 
+item_index:当前变量的索引值 
+item_has_next:是否存在下一个对象 其中item名称为as后的变量名,如stu
+
+<#if student?size != 0></#if> 判断=的时候,注意只要一个=符号,而不是==
+
+------------------------- boolean判断 switch语法 都没人用了-------------
+Boolean类型的空值判断
+空值判断可以写成<#if book.name?? > //注意${}为变量的渲染显示,而<>为定义等操作符的定义
+
+switch............
+<#switch value>
+<#case refValue1>
+...
+<#break>
+<#case refValue2>
+...
+<#break>
+...
+<#case refValueN>
+...
+<#break>
+<#default>
+...
+</#switch>
+————————— 宏 /模板———————
+宏/模板
+初步了解: 使用更像一个闭包closure,可以定义后,在脚本中任意地方引用,并原地起作用
+<#macro greet>
+<font size="+2">Hello Joe!</font>
+</#macro>
+使用的方式为:
+<@greet></@greet> //同xml可以简写成<@greet/>
+
+宏的参数定义,类似js,在宏名后 带参数进行传递定义
+<#macro greet person color>
+${person}
+</#macro>
+
+调用带参数时,注意使用类似XML的属性格式进行传递,不需要关心顺序问题
+<@greet person="Fred" color="black"/>
+
+参数默认值定义,如果没有,就必须要求传递完整的参数列表
+<#macro greet person color="black">
+<font size="+2" color="${color}">Hello ${person}!</font>
+</#macro>
+
+使用xml的嵌套内容进行传递宏调用,关键标签 <#nested>
+<#macro border>
+<table border=4 cellspacing=0 cellpadding=4><tr><td>
+<#nested>
+</tr></td></table>
+</#macro>
+
+调用时:
+<@border>The bordered text</@border>
+
+<#nested> 标签可以在宏中多次调用,也可以将多个宏组合进行嵌套
+————————————————
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

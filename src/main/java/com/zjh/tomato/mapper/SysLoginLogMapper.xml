@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zjh.tomato.dao.SysLoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.zjh.tomato.model.SysLoginLog" >
+    <id column="login_id" property="loginId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="ip" property="ip" jdbcType="VARCHAR" />
+    <result column="addr" property="addr" jdbcType="VARCHAR" />
+    <result column="os" property="os" jdbcType="VARCHAR" />
+    <result column="browser" property="browser" jdbcType="VARCHAR" />
+    <result column="last_time" property="lastTime" jdbcType="TIMESTAMP" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    login_id, username, ip, addr, os, browser, last_time, remark
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zjh.tomato.model.SysLoginLogExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sys_login_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_login_log
+    where login_id = #{loginId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sys_login_log
+    where login_id = #{loginId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zjh.tomato.model.SysLoginLogExample" >
+    delete from sys_login_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zjh.tomato.model.SysLoginLog" >
+    insert into sys_login_log (login_id, username, ip, 
+      addr, os, browser, 
+      last_time, remark)
+    values (#{loginId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}, 
+      #{addr,jdbcType=VARCHAR}, #{os,jdbcType=VARCHAR}, #{browser,jdbcType=VARCHAR}, 
+      #{lastTime,jdbcType=TIMESTAMP}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zjh.tomato.model.SysLoginLog" >
+    insert into sys_login_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="loginId != null" >
+        login_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="ip != null" >
+        ip,
+      </if>
+      <if test="addr != null" >
+        addr,
+      </if>
+      <if test="os != null" >
+        os,
+      </if>
+      <if test="browser != null" >
+        browser,
+      </if>
+      <if test="lastTime != null" >
+        last_time,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="loginId != null" >
+        #{loginId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zjh.tomato.model.SysLoginLogExample" resultType="java.lang.Integer" >
+    select count(*) from sys_login_log
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sys_login_log
+    <set >
+      <if test="record.loginId != null" >
+        login_id = #{record.loginId,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null" >
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ip != null" >
+        ip = #{record.ip,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addr != null" >
+        addr = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.os != null" >
+        os = #{record.os,jdbcType=VARCHAR},
+      </if>
+      <if test="record.browser != null" >
+        browser = #{record.browser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastTime != null" >
+        last_time = #{record.lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.remark != null" >
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sys_login_log
+    set login_id = #{record.loginId,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      ip = #{record.ip,jdbcType=VARCHAR},
+      addr = #{record.addr,jdbcType=VARCHAR},
+      os = #{record.os,jdbcType=VARCHAR},
+      browser = #{record.browser,jdbcType=VARCHAR},
+      last_time = #{record.lastTime,jdbcType=TIMESTAMP},
+      remark = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zjh.tomato.model.SysLoginLog" >
+    update sys_login_log
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null" >
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null" >
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="os != null" >
+        os = #{os,jdbcType=VARCHAR},
+      </if>
+      <if test="browser != null" >
+        browser = #{browser,jdbcType=VARCHAR},
+      </if>
+      <if test="lastTime != null" >
+        last_time = #{lastTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where login_id = #{loginId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zjh.tomato.model.SysLoginLog" >
+    update sys_login_log
+    set username = #{username,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      os = #{os,jdbcType=VARCHAR},
+      browser = #{browser,jdbcType=VARCHAR},
+      last_time = #{lastTime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR}
+    where login_id = #{loginId,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllLoginLog" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_login_log
+  </select>
+</mapper>
